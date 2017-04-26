@@ -1,0 +1,94 @@
+.gornypanel a {
+    margin: 5px;
+    padding: 5px;
+    text-decoration: none;
+    color: white;
+}
+
+.gornypanel {
+    background-color: black;
+    padding: 10px 90px;
+    text-align: right;
+    font-size: 14px;
+    color: white;
+}
+
+.dolnypanel {
+    background-color: black;
+    color: white;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+
+}
+
+.dolnypanel a {
+    text-decoration: none;
+    color: white;
+}
+
+.dolnypanel input {
+    font-size: 8pt;
+    height: 10px;
+    background-color: #222;
+    border: 0;
+    opacity: 0;
+}
+
+.dolnypanel input:hover {
+    opacity: 100;
+}
+
+.help {
+    font-size: 10pt;
+    color: #aaa;
+}
+
+#logo {
+    width: 100%;
+    margin-top: 50px;
+    margin-bottom: 50px;
+
+}
+
+#main-container {
+    background: white;
+}
+
+body,
+button,
+input,
+select,
+textarea {
+    color: #333;
+    font-family: "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+    line-height: 1.5em;
+    font-size: 13px;
+    word-wrap: break-word;
+    background: #dadada;
+}
+
+h1,h2 {
+    text-align: center;
+}
+
+.main-index {
+    height: 150px;
+    margin-top: 50px;
+}
+
+.main-index .col-md-6 {
+    height: 100%;
+}
+
+.main-index .btn {
+    width: 100%;
+    height: 100%;
+    font-size: 32px;
+    color: #334;
+    padding-top: 20px;
+}
+
+.main-index .fa {
+    font-size: 50px;
+}

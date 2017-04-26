@@ -1,0 +1,16 @@
+{
+  "name": "PJATK/ClarinSpeech",
+  "description": "Clarin speech services.",
+  "minimum-stability": "beta",
+  "license": "proprietary",
+  "authors": [
+    {
+      "name": "Danijel Korzinek",
+      "email": "danijel@pja.edu.pl"
+    }
+  ],
+  "require": {
+    "mongodb/mongodb": "1.2.x-dev",
+    "php-amqplib/php-amqplib": "v2.6.3"
+  }
+}
