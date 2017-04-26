@@ -118,7 +118,7 @@ if (strlen($description) > 0) {
 
                         <div class="form-group">
                             <label>Pobierz XML</label> <br>
-                            <a href="project.php?id=<?php echo $id ?>&xml" class="btn btn-info">XML</a>
+                            <a href="project.php?id=<?php echo $id ?>&xml" Caclass="btn btn-info">XML</a>
                         </div>
 
                         <div class="form-group">
