@@ -122,6 +122,10 @@ function project_xml($project)
         $elTool = $xml->createElement('tool');
         $elTool->setAttribute('name', $tool_name);
         $elTools->appendChild($elTool);
+        if (isset($tool['error'])) {
+            $elError = $xml->createElement('error', $tool['error']);
+            $elTool->appendChild($elError);
+        }
         foreach ($tool['files'] as $file) {
             $elFile = $xml->createElement('f', $file);
             $elTool->appendChild($elFile);
