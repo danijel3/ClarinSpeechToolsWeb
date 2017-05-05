@@ -207,7 +207,11 @@ if (strlen($description) > 0) {
                         <form action="util/add_transcription.php" method="post">
                             <textarea class="form-control" name="transcription"><?php
                                 if (isset($project['media']['default']['trans_file_path'])) {
-                                    readfile($project['media']['default']['trans_file_path']);
+                                    //readfile($project['media']['default']['trans_file_path']);
+					$handle = fopen($project['media']['default']['trans_file_path'], "r");
+					$contents = fread($handle, 10000);
+					fclose($handle);
+					echo $contents;
                                 }
                                 ?></textarea>
                             <button type="submit" class="btn btn-primary form-control">Aktualizuj transkrypcję
