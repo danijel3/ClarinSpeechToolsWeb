@@ -81,64 +81,66 @@ if (strlen($description) > 0) {
     <div class="tab-content">
 
         <div role="tabpanel" class="active tab-pane fade in" id="properties">
-            <p>Tutaj możesz ustawić niektóre ustawienia dla swojego projektu. Nazwa użytkownika i opis pomogą w
-                wyszukiwaniu, a hasło uniemożliwi osobom niepowołanym dostępu do danych. Jak skończysz tutaj,
-                przejdź do dodawania plików kilkając na zakładkę powyżej.</p>
 
-            <div class="row">
-                <div class="col-md-6">
-                    <form action="util/rename.php" method="post">
-                        <input type="hidden" name="id" value="<?php echo $id; ?>">
-                        <div class="form-group">
-                            <label for="description">Nazwa projektu</label>
-                            <input type="text" class="form-control" id="description" name="description"
-                                   value="<?php echo $description; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="user">Użytkownik</label>
-                            <input type="text" class="form-control" id="user" name="user"
-                                   value="<?php echo $user; ?>">
-                        </div>
-                        <div class="form-group">
-                            <label for="password">Hasło</label>
-                            <small>(Zostaw puste żeby nie zmieniać!)</small>
-                            <input type="password" class="form-control" id="password" name="password"">
-                            <small><?php
-                                if ($pass_state) {
-                                    echo 'Hasło jest ustawione! ';
-                                    echo '<input type="checkbox" name="delete_pass" class="form-check-input"> Usuń';
-                                } else {
-                                    echo 'Hasło nie jest ustawione!';
-                                }
-                                ?></small>
-                        </div>
-                        <button type="submit" class="btn btn-primary form-control">Zmień</button>
-                    </form>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group">
-                        <label>Link do projektu</label>
-                        <div class="input-group">
+
+            <p>Tutaj możesz ustawić niektóre ustawienia dla swojego projektu. Nazwa projektu i użytkownik pomogą w
+                wyszukiwaniu, a hasło uniemożliwi osobom niepowołanym dostępu do danych. Jak skończysz tutaj,
+                przejdź do dodawania plików kilkając na zakładkę "Pliki" powyżej.</p>
+
+
+            <div class="form-group">
+                <label>Link do projektu</label>
+                <div class="input-group">
                             <span class="input-group-btn">
                                 <button class="btn btn-secondary" type="button"
                                         onclick="do_copy('project_link')">Kopiuj</button>
                             </span>
-                            <input class="form-control" type="text" id="project_link"
-                                   value="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
-                        </div>
-                    </div>
+                    <input class="form-control" type="text" id="project_link"
+                           value="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
+                </div>
+            </div>
 
+            <div style="margin: 50px 0 80px 0">
+                <form action="util/rename.php" method="post">
+                    <input type="hidden" name="id" value="<?php echo $id; ?>">
                     <div class="form-group">
-                        <label>Pobierz XML</label> <br>
-                        <a href="project.php?id=<?php echo $id ?>&xml" class="btn btn-info">XML</a>
+                        <label for="description">Nazwa projektu</label>
+                        <input type="text" class="form-control" id="description" name="description"
+                               value="<?php echo $description; ?>">
                     </div>
+                    <div class="form-group">
+                        <label for="user">Użytkownik</label>
+                        <input type="text" class="form-control" id="user" name="user"
+                               value="<?php echo $user; ?>">
+                    </div>
+                    <div class="form-group">
+                        <label for="password">Hasło</label>
+                        <small>(Zostaw puste żeby nie zmieniać!)</small>
+                        <input type="password" class="form-control" id="password" name="password"">
+                        <small><?php
+                            if ($pass_state) {
+                                echo 'Hasło jest ustawione! ';
+                                echo '<input type="checkbox" name="delete_pass" class="form-check-input"> Usuń';
+                            } else {
+                                echo 'Hasło nie jest ustawione!';
+                            }
+                            ?></small>
+                    </div>
+                    <button type="submit" class="btn btn-primary form-control">Zmień</button>
+                </form>
+            </div>
 
-                    <div class="form-group">
-                        <label>Usuń ten projekt</label> <br>
-                        <a href="util/delete.php?id=<?php echo $id; ?>"
-                           onclick="return confirm('Czy na pewno?')"
-                           class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> Usuń</a>
-                    </div>
+
+            <div class="row">
+                <div class="form-group col-md-6">
+                    <label>Pobierz XML</label> <br>
+                    <a href="project.php?id=<?php echo $id ?>&xml" class="btn btn-info form-control">XML</a>
+                </div>
+                <div class="form-group col-md-6">
+                    <label>Usuń ten projekt</label> <br>
+                    <a href="util/delete.php?id=<?php echo $id; ?>"
+                       onclick="return confirm('Czy na pewno?')"
+                       class="btn btn-danger form-control"><i class="fa fa-trash-o" aria-hidden="true"></i> Usuń</a>
                 </div>
             </div>
         </div>
@@ -291,8 +293,10 @@ if (strlen($description) > 0) {
                                         <?php foreach ($output['files'] as $file): ?>
                                             <a href="util/get_output.php?id=<?php echo $id; ?>&task=<?php echo $tool; ?>&file=<?php echo $file; ?>"><?php echo $file; ?></a>
                                             <?php
-                                            if ($file == 'emuDB.zip' || $file == 'emuDB')
+                                            if ($file == 'emuDB.zip' || $file == 'emuDB') {
                                                 $has_emudb = true;
+                                                echo('<a href="util/refresh_emudb.php?id=' . $id . '&task=' . $tool . '" data-toggle="tooltip" title="Odświeź archiwum"><i class="fa fa-refresh" aria-hidden="true"></i></a>');
+                                            }
                                             ?>
                                         <?php endforeach; ?>
                                     </td>
@@ -313,6 +317,12 @@ if (strlen($description) > 0) {
         </div>
 
     </div>
+
+    <script>
+        $(document).ready(function () {
+            $('[data-toggle="tooltip"]').tooltip();
+        });
+    </script>
 
     <?php if (activate_admin()): ?>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
