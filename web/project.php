@@ -247,7 +247,7 @@ if (strlen($description) > 0) {
                             Segment align
                         </label>
                     </div>
-                    <button class="btn btn-primary" style="width: 200px" type="subimt">Uruchom</button>
+                    <button class="btn btn-primary" style="width: 200px" type="submit">Uruchom</button>
                 </form>
             </div>
 
@@ -259,6 +259,7 @@ if (strlen($description) > 0) {
                     <tr>
                         <th class="col-md-2">Narzędzie</th>
                         <th>Pliki do pobrania</th>
+                        <th>Usługi</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -278,6 +279,12 @@ if (strlen($description) > 0) {
                                         <?php endforeach; ?>
                                     </td>
                                 <?php endif; ?>
+                                <td>
+                                    <?php
+                                    $server_url = urlencode('ws://mowa.clarin-pl.eu:17890/' . $id . '/' . $tool);
+                                    ?>
+                                    <a href="http://ips-lmu.github.io/EMU-webApp/?autoConnect=true&serverUrl=<?php echo $server_url; ?>">EMU-webApp</a>
+                                </td>
                             </tr>
                         <?php endforeach; ?>
                     </tbody>
