@@ -208,10 +208,10 @@ if (strlen($description) > 0) {
                             <textarea class="form-control" name="transcription"><?php
                                 if (isset($project['media']['default']['trans_file_path'])) {
                                     //readfile($project['media']['default']['trans_file_path']);
-					$handle = fopen($project['media']['default']['trans_file_path'], "r");
-					$contents = fread($handle, 10000);
-					fclose($handle);
-					echo $contents;
+                                    $handle = fopen($project['media']['default']['trans_file_path'], "r");
+                                    $contents = fread($handle, 10000);
+                                    fclose($handle);
+                                    echo $contents;
                                 }
                                 ?></textarea>
                             <button type="submit" class="btn btn-primary form-control">Aktualizuj transkrypcję
@@ -267,7 +267,9 @@ if (strlen($description) > 0) {
                     </tr>
                     </thead>
                     <tbody>
-                    <?php if (isset($project['tools']))
+                    <?php
+                    $has_emudb = false;
+                    if (isset($project['tools']))
                         foreach ($project['tools'] as $tool => $output): ?>
                             <?php if (empty($tool)) continue; ?>
                             <tr>
@@ -280,14 +282,20 @@ if (strlen($description) > 0) {
                                     <td>
                                         <?php foreach ($output['files'] as $file): ?>
                                             <a href="util/get_output.php?id=<?php echo $id; ?>&task=<?php echo $tool; ?>&file=<?php echo $file; ?>"><?php echo $file; ?></a>
+                                            <?php
+                                            if ($file == 'emuDB.zip')
+                                                $has_emudb = true;
+                                            ?>
                                         <?php endforeach; ?>
                                     </td>
                                 <?php endif; ?>
                                 <td>
-                                    <?php
-                                    $server_url = urlencode('ws://mowa.clarin-pl.eu:17890/' . $id . '/' . $tool);
-                                    ?>
-                                    <a href="http://ips-lmu.github.io/EMU-webApp/?autoConnect=true&serverUrl=<?php echo $server_url; ?>">EMU-webApp</a>
+                                    <?php if ($has_emudb): ?>
+                                        <?php
+                                        $server_url = urlencode('ws://mowa.clarin-pl.eu:17890/' . $id . '/' . $tool);
+                                        ?>
+                                        <a href="http://ips-lmu.github.io/EMU-webApp/?autoConnect=true&serverUrl=<?php echo $server_url; ?>">EMU-webApp</a>
+                                    <?php endif; ?>
                                 </td>
                             </tr>
                         <?php endforeach; ?>
