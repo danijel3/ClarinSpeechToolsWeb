@@ -268,10 +268,12 @@ if (strlen($description) > 0) {
                     </thead>
                     <tbody>
                     <?php
-                    $has_emudb = false;
                     if (isset($project['tools']))
                         foreach ($project['tools'] as $tool => $output): ?>
-                            <?php if (empty($tool)) continue; ?>
+                            <?php
+                            if (empty($tool)) continue;
+                            $has_emudb = false;
+                            ?>
                             <tr>
                                 <td><?php echo $tool ?></td>
                                 <?php if (isset($output['error'])): ?>
@@ -283,7 +285,7 @@ if (strlen($description) > 0) {
                                         <?php foreach ($output['files'] as $file): ?>
                                             <a href="util/get_output.php?id=<?php echo $id; ?>&task=<?php echo $tool; ?>&file=<?php echo $file; ?>"><?php echo $file; ?></a>
                                             <?php
-                                            if ($file == 'emuDB.zip')
+                                            if ($file == 'emuDB.zip' || $file == 'emuDB')
                                                 $has_emudb = true;
                                             ?>
                                         <?php endforeach; ?>
