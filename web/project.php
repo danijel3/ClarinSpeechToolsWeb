@@ -60,87 +60,95 @@ if (strlen($description) > 0) {
 
     <h1>Projekt "<?php echo $name; ?>"</h1>
 
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            <a data-toggle="collapse" href="#collapse-pref">
-                <div class="panel-title">
-                    Właściwości
-                    <span class="help"> (kliknij żeby rozwinąć/zwinąć)</span>
-                </div>
+    <ul class="nav nav-tabs nav-justified" role="tablist">
+        <li role="presentation" class="active">
+            <a href="#properties" data-toggle="tab">
+                <i class="fa fa-key"></i> Właściwości
             </a>
-        </div>
+        </li>
+        <li role="presentation">
+            <a href="#files" data-toggle="tab">
+                <i class="fa fa-files-o" aria-hidden="true"></i> Pliki
+            </a>
+        </li>
+        <li role="presentation">
+            <a href="#tools" data-toggle="tab">
+                <i class="fa fa-cogs" aria-hidden="true"></i> Narzędzia
+            </a>
+        </li>
+    </ul>
 
-        <div class="panel-collapse collapse" id="collapse-pref">
-            <div class="panel-body">
-                <div class="row">
+    <div class="tab-content">
 
-                    <div class="col-md-6">
-                        <form action="util/rename.php" method="post">
-                            <input type="hidden" name="id" value="<?php echo $id; ?>">
-                            <div class="form-group">
-                                <label for="description">Nazwa projektu</label>
-                                <input type="text" class="form-control" id="description" name="description"
-                                       value="<?php echo $description; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="user">Użytkownik</label>
-                                <input type="text" class="form-control" id="user" name="user"
-                                       value="<?php echo $user; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Hasło</label>
-                                <small>(Zostaw puste żeby nie zmieniać!)</small>
-                                <input type="password" class="form-control" id="password" name="password"">
-                                <small><?php
-                                    if ($pass_state) {
-                                        echo 'Hasło jest ustawione! ';
-                                        echo '<input type="checkbox" name="delete_pass" class="form-check-input"> Usuń';
-                                    } else {
-                                        echo 'Hasło nie jest ustawione!';
-                                    }
-                                    ?></small>
-                            </div>
-                            <button type="submit" class="btn btn-primary form-control">Zmień</button>
-                        </form>
-                    </div>
-                    <div class="col-md-6">
+        <div role="tabpanel" class="active tab-pane fade in" id="properties">
+            <p>Tutaj możesz ustawić niektóre ustawienia dla swojego projektu. Nazwa użytkownika i opis pomogą w
+                wyszukiwaniu, a hasło uniemożliwi osobom niepowołanym dostępu do danych. Jak skończysz tutaj,
+                przejdź do dodawania plików kilkając na zakładkę powyżej.</p>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <form action="util/rename.php" method="post">
+                        <input type="hidden" name="id" value="<?php echo $id; ?>">
                         <div class="form-group">
-                            <label>Link do projektu</label>
-                            <div class="input-group">
+                            <label for="description">Nazwa projektu</label>
+                            <input type="text" class="form-control" id="description" name="description"
+                                   value="<?php echo $description; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="user">Użytkownik</label>
+                            <input type="text" class="form-control" id="user" name="user"
+                                   value="<?php echo $user; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Hasło</label>
+                            <small>(Zostaw puste żeby nie zmieniać!)</small>
+                            <input type="password" class="form-control" id="password" name="password"">
+                            <small><?php
+                                if ($pass_state) {
+                                    echo 'Hasło jest ustawione! ';
+                                    echo '<input type="checkbox" name="delete_pass" class="form-check-input"> Usuń';
+                                } else {
+                                    echo 'Hasło nie jest ustawione!';
+                                }
+                                ?></small>
+                        </div>
+                        <button type="submit" class="btn btn-primary form-control">Zmień</button>
+                    </form>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group">
+                        <label>Link do projektu</label>
+                        <div class="input-group">
                             <span class="input-group-btn">
                                 <button class="btn btn-secondary" type="button"
                                         onclick="do_copy('project_link')">Kopiuj</button>
                             </span>
-                                <input class="form-control" type="text" id="project_link"
-                                       value="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
-                            </div>
+                            <input class="form-control" type="text" id="project_link"
+                                   value="<?php echo 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI']; ?>">
                         </div>
+                    </div>
 
-                        <div class="form-group">
-                            <label>Pobierz XML</label> <br>
-                            <a href="project.php?id=<?php echo $id ?>&xml" class="btn btn-info">XML</a>
-                        </div>
+                    <div class="form-group">
+                        <label>Pobierz XML</label> <br>
+                        <a href="project.php?id=<?php echo $id ?>&xml" class="btn btn-info">XML</a>
+                    </div>
 
-                        <div class="form-group">
-                            <label>Usuń ten projekt</label> <br>
-                            <a href="util/delete.php?id=<?php echo $id; ?>" onclick="return confirm('Czy na pewno?')"
-                               class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> Usuń</a>
-                        </div>
+                    <div class="form-group">
+                        <label>Usuń ten projekt</label> <br>
+                        <a href="util/delete.php?id=<?php echo $id; ?>"
+                           onclick="return confirm('Czy na pewno?')"
+                           class="btn btn-danger"><i class="fa fa-trash-o" aria-hidden="true"></i> Usuń</a>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
 
-    <div class="panel panel-default">
 
-        <div class="panel-heading">
-            <div class="panel-title">
-                Pliki
-            </div>
-        </div>
+        <div role="tabpanel" class="tab-pane fade" id="files">
 
-        <div class="panel-body">
+            <p>Ta zakładka służy do dodawania plików do projektu. Każdy plik z nagraniem może posiadać opcjonalnie
+                transkrypcję. Jak skończysz dodawać pliki, przejdź do narzędzi klikając ostatnią zakładę powyżej.</p>
+
 
             <div class="row">
                 <div class="col-md-6">
@@ -152,7 +160,8 @@ if (strlen($description) > 0) {
                     <div class="form-group">
                         <form action="util/add_media.php" method="post" enctype="multipart/form-data">
                             <input type="file" class="form-control" name="mediaFile">
-                            <button type="submit" class="btn btn-primary form-control">Wgraj plik z nagraniem</button>
+                            <button type="submit" class="btn btn-primary form-control">Wgraj plik z nagraniem
+                            </button>
                             <input type="hidden" name="id" value="<?php echo $id; ?>">
                             <input type="hidden" name="fid" value="default">
                         </form>
@@ -163,7 +172,8 @@ if (strlen($description) > 0) {
                             <p>Wgrano plik o nazwie
                                 <strong><?php echo $project['media']['default']['original_name']; ?></strong></p>
                             <audio controls preload="none" style="width: 100%">
-                                <source id="audio-source" src="util/get_media.php?id=<?php echo $id; ?>&fid=default">
+                                <source id="audio-source"
+                                        src="util/get_media.php?id=<?php echo $id; ?>&fid=default">
                                 Cannot play audio!
                             </audio>
                         </div>
@@ -223,18 +233,14 @@ if (strlen($description) > 0) {
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="panel panel-default">
 
 
-        <div class="panel-heading">
-            <div class="panel-title">
-                Narzędzia
-            </div>
-        </div>
+        <div role="tabpanel" class="tab-pane fade" id="tools">
 
-        <div class="panel-body">
+            <p>Tutaj można uruchamiać narzędzia na plikach dodanych w poprzedniej zakładce. Wyniki działania narzędzi
+                będą wyświetlone w tabelce poniżej.</p>
+
+
             <div class="form-group">
                 <h3>Wybierz narzędzie</h3>
                 <form action="util/run.php" method="post">
@@ -305,8 +311,8 @@ if (strlen($description) > 0) {
                 </table>
             </div>
         </div>
-    </div>
 
+    </div>
 
     <?php if (activate_admin()): ?>
         <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.11.0/styles/default.min.css">
